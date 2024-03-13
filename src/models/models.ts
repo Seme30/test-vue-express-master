@@ -15,11 +15,13 @@ interface Campaign {
 }
 
 export default interface Business {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   [key: string]: any;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
   name: string;
   id: number;
   createdAt: string;
   updatedAt: string;
   category: Category;
-  campaigns: Campaign [];
+  campaigns: Campaign[];
 }

@@ -8,17 +8,21 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "generate": "node ./generate.js"
+    "generate": "node ./generate.js",
+    "prettier": "npx prettier --write ."
   },
   "dependencies": {
     "@apollo/client": "^3.9.6",
     "@faker-js/faker": "^8.0.2",
+    "@vue-leaflet/vue-leaflet": "^0.10.1",
     "@vue/runtime-core": "^3.4.21",
     "axios": "^1.6.7",
     "core-js": "^3.8.3",
+    "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
     "rosie": "^2.1.0",
     "vue": "^3.2.13",
+    "vue-leaflet": "^0.1.0",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
@@ -32,6 +36,7 @@
     "@vue/eslint-config-typescript": "^9.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "prettier": "3.2.5",
     "typescript": "~4.5.5"
   },
   "_id": "adivsr-applicant-project@1.0.0",
