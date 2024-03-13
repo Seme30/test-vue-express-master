@@ -1,5 +1,5 @@
 <template>
-    <div class="card" @mouseover="isHover = true" @mouseleave="isHover = false">
+    <div class="card" @click="goToDetailPage"  @mouseover="isHover = true" @mouseleave="isHover = false">
       <div v-if="business" class="card-content">
         <h2>{{ business.name }}</h2>
         <p>Category: {{ business.category.name }}</p>
@@ -11,7 +11,9 @@
   
   <script lang="ts">
   import { defineComponent, ref } from 'vue';
+  import { useRouter } from 'vue-router';
   import Business from '../models/models'
+
   
   export default defineComponent({
     props: {
@@ -20,7 +22,8 @@
         required: true
       }
     },
-    setup(props) {     
+    setup(props) {   
+
       const calculateAverageCampaignBudget = (campaigns: {
   budget: number;
   businessId: number;
@@ -38,10 +41,17 @@
   
       const averageCampaignBudget = ref(calculateAverageCampaignBudget(props.business.campaigns));
       const isHover = ref(false);
+      const router = useRouter();
+
+      const goToDetailPage = () => {
+        console.log(props.business.id)
+  router.push(`/business/${props.business.id}`);
+};
   
       return {
         isHover,
-         averageCampaignBudget
+         averageCampaignBudget,
+         goToDetailPage
       };
     }
   });
