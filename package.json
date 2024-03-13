@@ -1,0 +1,37 @@
+{
+  "name": "adivsr-applicant-project",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "author": "",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "generate": "node ./generate.js"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^8.0.2",
+    "core-js": "^3.8.3",
+    "lodash": "^4.17.21",
+    "rosie": "^2.1.0",
+    "vue": "^3.2.13",
+    "vue-router": "^4.0.3"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-typescript": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "@vue/eslint-config-typescript": "^9.1.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "typescript": "~4.5.5"
+  },
+  "_id": "adivsr-applicant-project@1.0.0",
+  "license": "ISC",
+  "readme": "ERROR: No README data found!"
+}
