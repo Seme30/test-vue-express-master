@@ -15,6 +15,7 @@ interface Campaign {
 }
 
 export default interface Business {
+  [key: string]: any;
   name: string;
   id: number;
   createdAt: string;

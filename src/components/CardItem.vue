@@ -45,7 +45,7 @@
 
       const goToDetailPage = () => {
         console.log(props.business.id)
-  router.push(`/business/${props.business.id}`);
+      router.push(`/business/${props.business.id}`);
 };
   
       return {
@@ -80,6 +80,10 @@
     justify-content: space-between;
     height: 100%;
   }
+
+  h2 {
+  color: green;
+}
   </style>
   
   
