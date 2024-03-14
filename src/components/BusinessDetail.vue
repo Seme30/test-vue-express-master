@@ -20,6 +20,10 @@
         />
         <button @click="sortCampaigns" class="sort-button">Sort</button>
       </div>
+
+      <div>
+       <a :href="business.externalSystems[0].baseUrl" target="_blank" rel="noopener noreferrer">Visit Campaign Link</a>
+    </div>
       
       <ul class="campaign-list">
         <li

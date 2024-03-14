@@ -14,6 +14,14 @@ interface Campaign {
   updatedAt: string;
 }
 
+interface ExternalSystem {
+  name: string;
+  provider: string,
+  baseUrl: string,
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
 
 
@@ -27,4 +35,5 @@ export default interface Business {
   updatedAt: string;
   category: Category;
   campaigns: Campaign[];
+  externalSystems: ExternalSystem []
 }
