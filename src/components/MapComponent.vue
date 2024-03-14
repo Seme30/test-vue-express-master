@@ -5,17 +5,24 @@
       <l-marker
         v-for="(location, index) in locations"
         :key="index"
+        @click="goToDetailPage(location.id)"
         :lat-lng="location"
       ></l-marker>
-      <p>{{ locations }}</p>
     </l-map>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { LMap, LTileLayer, LMarker } from '@vue-leaflet/vue-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { ref, computed } from 'vue';
+
+interface Location {
+  lat: number;
+  lng: number;
+  id: string;
+}
 
 export default {
   name: 'MapComponent',
@@ -26,11 +33,11 @@ export default {
   },
   props: {
     locations: {
-      type: Array,
-      required: true,
+      type: Array as () => Location[],
+      default: () => [],
     },
   },
-  setup() {
+  setup(props) {
     const zoom = ref(17);
     const center = ref([40.7112591840988, -74.0063372315252]);
     const url = ref('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
@@ -38,15 +45,25 @@ export default {
       'Map data (c) <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
     );
 
+    const router = useRouter();
+
+    const goToDetailPage = (id: string) => {
+      router.push(`/business/${id}`);
+    };
+
+
+
     return {
       zoom,
       center,
       url,
       attribution,
+      goToDetailPage,
     };
   },
 };
 </script>
+
 
 <style scoped>
 .map {

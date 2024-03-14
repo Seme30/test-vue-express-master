@@ -93,6 +93,7 @@ export default defineComponent({
       return businesses.value.flatMap((business: Business) =>
         business.locations
           ? business.locations.map((location: Location) => ({
+             id: location.businessId,
               lat: location.latitude,
               lng: location.longitude,
             }))
@@ -121,6 +122,7 @@ export default defineComponent({
 .items {
   display: flex;
   flex-wrap: wrap;
+  margin: auto;
 }
 
 .controls {
@@ -136,19 +138,6 @@ export default defineComponent({
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-.search-button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-.search-button:hover {
-  background-color: #0056b3;
 }
 
 .sort-button {

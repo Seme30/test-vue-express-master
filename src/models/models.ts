@@ -14,6 +14,9 @@ interface Campaign {
   updatedAt: string;
 }
 
+
+
+
 export default interface Business {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   [key: string]: any;

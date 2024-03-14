@@ -2,12 +2,28 @@
   <div class="container">
     <div v-if="loading" class="loading">Loading...</div>
     <div v-if="error" class="error">An error occurred: {{ error }}</div>
+    
     <div v-if="business" class="business">
       <h1 class="business-name">{{ business.name }}</h1>
       <h2 class="campaign-title">Campaigns</h2>
+
+      <div v-if="locations">
+        <SingleMapComp :locations="locations"/>
+      </div>
+
+      <div class="controls">
+        <input
+          v-model="searchTerm"
+          type="text"
+          placeholder="Search..."
+          class="search-box"
+        />
+        <button @click="sortCampaigns" class="sort-button">Sort</button>
+      </div>
+      
       <ul class="campaign-list">
         <li
-          v-for="campaign in business.campaigns"
+          v-for="campaign in sortedAndFilteredCampaigns"
           :key="campaign.id"
           class="campaign-item"
         >
@@ -19,18 +35,28 @@
   </div>
 </template>
 
+
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
+import { defineComponent, ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import Business from '../models/models';
 import { useRoute } from 'vue-router';
+import SingleMapComp from './SingleMapComp.vue'
 
 export default defineComponent({
+
+  components: {
+    SingleMapComp,
+  },
   setup() {
     const route = useRoute();
     const business = ref<Business | null>(null);
     const loading = ref(true);
     const error = ref(null);
+
+    const searchTerm = ref('');
+    const sortColumn = ref('');
+    
 
     onMounted(async () => {
       const id = route.params.id;
@@ -46,10 +72,64 @@ export default defineComponent({
         });
     });
 
+    interface Campaign {
+  budget: number;
+  businessId: number;
+  name: string;
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+    const sortCampaigns = () => {
+      if (sortColumn.value) {
+        sortColumn.value = '';
+      } else {
+        sortColumn.value = 'name';
+      }
+    };
+
+
+    const sortedAndFilteredCampaigns = computed(() => {
+      let result = business.value?.campaigns;
+      if (searchTerm.value) {
+        const lowerCaseSearchTerm = searchTerm.value.toLowerCase();
+        result = result?.filter((campaign: Campaign) =>
+        campaign.name.toLowerCase().startsWith(lowerCaseSearchTerm),
+        );
+      }
+      if (sortColumn.value) {
+        result?.sort((a, b) => a.name.localeCompare(b.name));
+      }
+      return result;
+    });
+
+
+    type Location = {
+      businessId: number;
+      id: number;
+      createdAt: string;
+      updatedAt: string;
+      latitude: number;
+      longitude: number;
+    };
+
+    const locations = computed(() => {
+      return business.value?.locations.map((location: Location) => ({
+              lat: location.latitude,
+              lng: location.longitude,
+            }))
+    });
+
     return {
       business,
       loading,
       error,
+      locations,
+      sortCampaigns,
+      sortColumn,
+      searchTerm,
+      sortedAndFilteredCampaigns
     };
   },
 });
@@ -86,11 +166,13 @@ export default defineComponent({
 .business-name {
   color: green;
   padding-top: 30px;
+  text-align: center;
 }
 
 .campaign-title {
   margin-top: 10px;
   font-weight: bold;
+  text-align: center;
 }
 
 .campaign-list {
@@ -129,5 +211,34 @@ export default defineComponent({
   box-sizing: border-box;
   border: none;
   color: #555;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width: 60%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  flex-grow: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.sort-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.sort-button:hover {
+  background-color: #0056b3;
 }
 </style>
