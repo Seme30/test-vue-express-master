@@ -22,7 +22,7 @@
       </div>
 
       <div>
-       <a :href="business.externalSystems[0].baseUrl" target="_blank" rel="noopener noreferrer">Visit Campaign Link</a>
+       <a :href="business.externalSystems[0].baseUrl" target="_blank" rel="noopener noreferrer">{{ business.externalSystems[0].name }}</a>
     </div>
       
       <ul class="campaign-list">
