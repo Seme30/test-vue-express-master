@@ -1,5 +1,11 @@
 <template>
   <div class="business-list">
+    <div v-if="loading">Loading...</div>
+
+    <div v-if="error">An error occurred: {{ error }}</div>
+
+    <MapComponent :locations="locations" />
+
     <div v-if="businesses" class="controls">
       <input
         v-model="searchTerm"
@@ -10,18 +16,13 @@
       <button @click="sortBusinesses" class="sort-button">Sort</button>
     </div>
 
-    <div v-if="loading">Loading...</div>
-
-    <div v-if="error">An error occurred: {{ error }}</div>
-
-    <MapComponent :locations="locations" />
-
     <div class="items" v-if="businesses">
-      <CardItem
+      <TableItem v-if="businesses" :businesses="businesses" />
+      <!-- <CardItem
         v-for="business in businesses"
         :key="business.id"
         :business="business"
-      />
+      /> -->
     </div>
   </div>
 </template>
@@ -30,13 +31,15 @@
 import { computed, defineComponent, ref } from 'vue';
 import axios from 'axios';
 import Business from '../models/models';
-import CardItem from './CardItem.vue';
+// import CardItem from './CardItem.vue';
 import MapComponent from './MapComponent.vue';
+import TableItem from './TableItem.vue';
 
 export default defineComponent({
   components: {
-    CardItem,
+    // CardItem,
     MapComponent,
+    TableItem
   },
   setup() {
     const businesses = ref<Business[]>([]);
@@ -123,6 +126,7 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   margin: auto;
+  margin-top: 20px;
 }
 
 .controls {
@@ -138,6 +142,7 @@ export default defineComponent({
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin-top: 20px;
 }
 
 .sort-button {

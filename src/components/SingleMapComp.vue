@@ -1,3 +1,4 @@
+
 <template>
     <div class="map">
       <l-map :zoom="zoom" :center="center">
@@ -13,15 +14,20 @@
   </template>
   
   <script lang="ts">
+  /* eslint-disable */
   import { LMap, LTileLayer, LMarker } from '@vue-leaflet/vue-leaflet';
   import 'leaflet/dist/leaflet.css';
-  import { ref } from 'vue';
+  import { PropType, ref, SetupContext } from 'vue';
   
   interface Location {
     lat: number;
     lng: number;
     id: string;
   }
+
+  type Props = {
+  locations: Location[];
+};
   
   export default {
     name: 'MapComponent',
@@ -31,12 +37,12 @@
       LMarker,
     },
     props: {
-        locations: {
-      type: Array as () => Location[],
+      locations: {
+      type: Array as PropType<Location[]>,
       default: () => [],
     },
     },
-    setup(props) {
+    setup(props: any) {
       const zoom = ref(17);
       const center = ref([props.locations[0]?.lat, props.locations[0]?.lng]);
       const url = ref('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');

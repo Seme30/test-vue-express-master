@@ -37,7 +37,7 @@ export default {
       default: () => [],
     },
   },
-  setup(props) {
+  setup() {
     const zoom = ref(17);
     const center = ref([40.7112591840988, -74.0063372315252]);
     const url = ref('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
