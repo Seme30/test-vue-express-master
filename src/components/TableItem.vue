@@ -91,23 +91,3 @@ export default defineComponent({
 }
    
   </style>
-
-  
-  <style scoped>
-
-  .styled-table {
-  width: 80%;
-  height: 750px;
-  height: 500px;
-  margin: 0 auto;
-  }
-.styled-table >>> .v-data-table-header {
-  background-color: #4caf50;
-  color: white;
-  text-align: center;
-}
-
-.v-data-table-header::after {
-  content: "⬆️";
-}
-  </style>

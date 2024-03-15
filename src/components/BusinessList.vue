@@ -115,12 +115,7 @@ export default defineComponent({
   height: 100%;
 }
 
-.items {
-  display: flex;
-  flex-wrap: wrap;
-  margin: auto;
-  margin-top: 20px;
-}
+
 
 .controls {
   display: flex;
