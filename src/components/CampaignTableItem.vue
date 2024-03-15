@@ -1,5 +1,6 @@
 <template>
-    <v-data-table
+    <v-card flat>
+        <v-data-table
       :headers="headers"
       :items="sortedAndFilteredCampaigns"
       :items-per-page="5"
@@ -9,6 +10,7 @@
         <a :href="business.externalSystems[0].baseUrl" target="_blank" rel="noopener noreferrer">{{ item.name }}</a>
       </template>
     </v-data-table>
+    </v-card>
   </template>
   
   <script lang="ts">
@@ -37,8 +39,8 @@
     },
     setup() {
       const headers = [
-        { title: 'Name ', value: 'name', sortable: true, align: 'center', cellClass: 'text-center' },
-        { title: 'Budget ', value: 'budget', sortable: true, align: 'center', cellClass: 'text-center' },
+        { title: 'Name ', key: 'name', value: 'name', sortable: true, align: 'center', cellClass: 'text-center' },
+        { title: 'Budget ', key: 'budget' ,value: 'budget', sortable: true, align: 'center', cellClass: 'text-center' },
       ];
   
       return {

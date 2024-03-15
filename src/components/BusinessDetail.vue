@@ -12,12 +12,17 @@
       </div>
 
       <div class="controls">
-        <input
-          v-model="searchTerm"
-          type="text"
-          placeholder="Search..."
-          class="search-box"
-        />
+        <v-spacer></v-spacer>
+        <v-text-field class="search-box"
+        v-model="searchTerm"
+        density="compact"
+        label="Search"
+        prepend-inner-icon="mdi-magnify"
+        variant="filled"
+        flat
+        hide-details
+        single-line
+      ></v-text-field>
       </div>
       
       <div v-if="sortedAndFilteredCampaigns">
@@ -204,20 +209,18 @@ export default defineComponent({
 
 .controls {
   display: flex;
-  justify-content: flex-end;
-  align-items: end;
+  justify-content: flex-end; 
+  align-items: center; 
   margin: auto;
   width: 80%;
   margin-bottom: 20px;
 }
 
 .search-box {
-  width: 40%;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  width: 100px;
   margin-top: 20px;
 }
+
 
 .sort-button {
   margin-left: 10px;

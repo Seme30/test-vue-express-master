@@ -1,5 +1,6 @@
 <template>
-  <v-data-table
+  <v-card flat>
+    <v-data-table
     :headers="headers"
     :items="computedBusinesses"
     :items-per-page="10"
@@ -11,6 +12,8 @@
 
 
   </v-data-table>
+  </v-card>
+
 </template>
   
 <script lang="ts">
