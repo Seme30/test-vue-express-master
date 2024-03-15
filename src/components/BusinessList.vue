@@ -14,7 +14,6 @@
         placeholder="Search..."
         class="search-box"
       />
-      <!-- <button @click="searchBusinesses" class="search-button">Search</button> -->
     </div>
 
     <div class="items" v-if="businesses">

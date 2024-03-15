@@ -29,11 +29,11 @@ export default defineComponent({
     const router = useRouter();
 
     const headers = [
-  { title: 'Name', value: 'name', sortable: true },
-  { title: 'Category', value: 'category.name', sortable: true },
-  { title: 'Number of Campaigns', value: 'campaigns.length', sortable: true },
-  { title: 'Average Campaign Budget', value: 'averageCampaignBudget', sortable: true },
-];
+      { title: 'Name', value: 'name', sortable: true, align: 'center', cellClass: 'text-center', headerClass: 'text-center' },
+      { title: 'Category', value: 'category.name', sortable: true, align: 'center', cellClass: 'text-center', headerClass: 'text-center' },
+      { title: 'Number of Campaigns', value: 'campaigns.length', sortable: true, align: 'center', cellClass: 'text-center', headerClass: 'text-center' },
+      { title: 'Average Campaign Budget', value: 'averageCampaignBudget', sortable: true, align: 'center', cellClass: 'text-center', headerClass: 'text-center' },
+    ];
 
     const goToDetailPage = (id: number) => {
       console.log(id);
@@ -80,8 +80,6 @@ export default defineComponent({
 
   .styled-table {
   width: 80%;
-  height: 750px;
-  height: 500px;
   margin: 0 auto;
   }
 .styled-table >>> .v-data-table-header {
@@ -103,7 +101,10 @@ export default defineComponent({
 .styled-table >>> .v-data-table-header {
   background-color: #4caf50;
   color: white;
+  text-align: center;
 }
-   
+
+.v-data-table-header::after {
+  content: "⬆️";
+}
   </style>
-  

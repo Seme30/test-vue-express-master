@@ -18,23 +18,11 @@
           placeholder="Search..."
           class="search-box"
         />
-        <button @click="sortCampaigns" class="sort-button">Sort</button>
       </div>
-
-      <div>
-       <a :href="business.externalSystems[0].baseUrl" target="_blank" rel="noopener noreferrer">{{ business.externalSystems[0].name }}</a>
-    </div>
       
-      <ul class="campaign-list">
-        <li
-          v-for="campaign in sortedAndFilteredCampaigns"
-          :key="campaign.id"
-          class="campaign-item"
-        >
-          <span class="campaign-name">{{ campaign.name }}</span>
-          <span class="campaign-budget">Budget: {{ campaign.budget }}</span>
-        </li>
-      </ul>
+      <div v-if="sortedAndFilteredCampaigns">
+        <CampaignTableItem :sortedAndFilteredCampaigns="sortedAndFilteredCampaigns" :business="business" />
+      </div>
     </div>
   </div>
 </template>
@@ -46,11 +34,13 @@ import axios from 'axios';
 import Business from '../models/models';
 import { useRoute } from 'vue-router';
 import SingleMapComp from './SingleMapComp.vue'
+import CampaignTableItem from './CampaignTableItem.vue';
 
 export default defineComponent({
 
   components: {
     SingleMapComp,
+    CampaignTableItem
   },
   setup() {
     const route = useRoute();
@@ -141,12 +131,8 @@ export default defineComponent({
 
 <style scoped>
 .container {
-  width: 80%;
   margin: auto;
-  margin-bottom: 40px;
-  background: white;
-  text-align: left;
-  border-radius: 10px;
+  height: 100%;
 }
 
 .loading {
@@ -169,7 +155,6 @@ export default defineComponent({
 
 .business-name {
   color: green;
-  padding-top: 30px;
   text-align: center;
 }
 
@@ -219,18 +204,19 @@ export default defineComponent({
 
 .controls {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-items: end;
   margin: auto;
-  width: 60%;
-  margin-top: 20px;
+  width: 80%;
   margin-bottom: 20px;
 }
 
 .search-box {
-  flex-grow: 1;
+  width: 40%;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin-top: 20px;
 }
 
 .sort-button {
