@@ -6,12 +6,23 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import {  mdi } from "vuetify/iconsets/mdi";
+import "@mdi/font/css/materialdesignicons.css";
 
-axios.defaults.baseURL = 'http://localhost:4000/';
 
 const vuetify = createVuetify({
   components,
   directives,
-})
+  icons: {
+    defaultSet: "mdi",
+    sets: {
+      mdi,
+    },
+  },
+});
+
+axios.defaults.baseURL = 'http://localhost:4000/';
+
+
 
 createApp(App).use(router).use(vuetify).mount('#app');
