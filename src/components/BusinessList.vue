@@ -8,21 +8,17 @@
 
     <div v-if="businesses" class="controls">
       <input
-        v-model="searchTerm"
+        :value="searchTerm"
+        @input="updateSearchTerm"
         type="text"
         placeholder="Search..."
         class="search-box"
       />
-      <button @click="sortBusinesses" class="sort-button">Sort</button>
+      <!-- <button @click="searchBusinesses" class="search-button">Search</button> -->
     </div>
 
     <div class="items" v-if="businesses">
-      <TableItem v-if="businesses" :businesses="businesses" />
-      <!-- <CardItem
-        v-for="business in businesses"
-        :key="business.id"
-        :business="business"
-      /> -->
+      <TableItem v-if="businesses" :businesses="filteredBusinesses" />
     </div>
   </div>
 </template>
@@ -31,13 +27,11 @@
 import { computed, defineComponent, ref } from 'vue';
 import axios from 'axios';
 import Business from '../models/models';
-// import CardItem from './CardItem.vue';
 import MapComponent from './MapComponent.vue';
 import TableItem from './TableItem.vue';
 
 export default defineComponent({
   components: {
-    // CardItem,
     MapComponent,
     TableItem
   },
@@ -47,13 +41,11 @@ export default defineComponent({
     const error = ref(null);
 
     const searchTerm = ref('');
-    const sortColumn = ref('');
 
     axios
       .get('businessesCat')
       .then((response) => {
         businesses.value = response.data;
-        console.log(businesses.value);
         loading.value = false;
       })
       .catch((err) => {
@@ -61,26 +53,22 @@ export default defineComponent({
         loading.value = false;
       });
 
-    const sortBusinesses = () => {
-      if (sortColumn.value) {
-        sortColumn.value = '';
-      } else {
-        sortColumn.value = 'name';
-      }
+    const updateSearchTerm = (event:any) => {
+      searchTerm.value = event.target.value;
     };
 
-    const sortedAndFilteredBusinesses = computed(() => {
-      let result = businesses.value;
+    const searchBusinesses = () => {
+      searchTerm.value = searchTerm.value.toLowerCase();
+    };
+
+    const filteredBusinesses = computed(() => {
       if (searchTerm.value) {
-        const lowerCaseSearchTerm = searchTerm.value.toLowerCase();
-        result = result.filter((business) =>
-          business.name.toLowerCase().startsWith(lowerCaseSearchTerm),
+        return businesses.value.filter((business) =>
+          business.name.toLowerCase().startsWith(searchTerm.value),
         );
+      } else {
+        return businesses.value;
       }
-      if (sortColumn.value) {
-        result.sort((a, b) => a.name.localeCompare(b.name));
-      }
-      return result;
     });
 
     type Location = {
@@ -105,12 +93,14 @@ export default defineComponent({
     });
 
     return {
-      businesses: sortedAndFilteredBusinesses,
+      businesses,
       loading,
       error,
       searchTerm,
-      sortBusinesses,
+      updateSearchTerm,
+      searchBusinesses,
       locations,
+      filteredBusinesses,
     };
   },
 });
@@ -131,21 +121,22 @@ export default defineComponent({
 
 .controls {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-items: end;
   margin: auto;
-  width: 60%;
+  width: 80%;
   margin-bottom: 20px;
 }
 
 .search-box {
-  flex-grow: 1;
+  width: 40%;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-top: 20px;
 }
 
-.sort-button {
+.search-button {
   margin-left: 10px;
   padding: 5px 10px;
   border: none;
@@ -154,7 +145,7 @@ export default defineComponent({
   cursor: pointer;
 }
 
-.sort-button:hover {
+.search-button:hover {
   background-color: #0056b3;
 }
 </style>
